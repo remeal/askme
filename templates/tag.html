@@ -1,0 +1,16 @@
+{%  extends 'inc/base.html' %}
+{%  block title %}
+      <nav class="nav d-flex align-items-center nav-questions">
+          <div class="p-2 text-muted">{{ title }}</div>
+        </nav>
+{%  endblock title %}
+{%  block content %}
+        <div class="col-md-8">
+        {% for question in questions%}
+        {% include 'inc/one_question.html' %}
+        {% endfor %}
+    </div>
+{%  endblock content %}
+{% block paginate %}
+    {% include 'inc/paginator.html' %}
+{% endblock paginate %}

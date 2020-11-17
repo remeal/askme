@@ -1,0 +1,46 @@
+{%  extends 'inc/base.html' %}
+{%  load static %}
+{%  block title %}
+      <nav class="nav d-flex align-items-center nav-questions">
+          <div class="p-2 text-muted">Settings: Dr. Pepper</div>
+        </nav>
+{%  endblock title %}
+{%  block content %}
+            <div class="col-md-8">
+                <form>
+                    <div class="form-group row">
+                      <label for="staticTitle" class="col-sm-4 col-form-label">Login</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="staticTitle" class="col-sm-4 col-form-label">Email</label>
+                        <div class="col-sm-6">
+                          <input type="email" class="form-control">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="staticTitle" class="col-sm-4 col-form-label">NickName</label>
+                        <div class="col-sm-6">
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    <div class="form-group row">
+                      <label for="staticTitle" class="col-sm-4 col-form-label">Upload avatar</label>
+                      <div class="col-sm-6">
+                        <img class="picture-settings" src= "{% static "/img/user-1.png"%}">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6 offset-sm-4">
+                            <input type="file" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">c:\avatar.jpg</label>
+                          <div class="py-4">
+                          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
+                        </div>
+                        </div>
+                      </div>
+                  </form>
+        </div>
+{%  endblock content %}

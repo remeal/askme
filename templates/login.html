@@ -1,0 +1,39 @@
+{%  extends 'inc/base.html' %}
+{% block title %}
+      <nav class="nav d-flex align-items-center nav-questions">
+          <div class="p-2 text-muted">Log In</div>
+        </nav>
+{%  endblock title %}
+          {% block content %}
+        <div class="col-md-8">
+            <form>
+                <div class="form-group row">
+                  <label for="staticTitle" class="col-sm-4 col-form-label">Login</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" placeholder="Enter you login here" required>
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <label for="exampleInputPassword1" class="col-sm-4 col-form-label">Password</label>
+                    <div class="col-sm-6">
+                        <input type="password" class="form-control is-invalid" id="exampleInputPassword1"  placeholder="************" minlength="8" required>
+                        <div id="validationServer03Feedback" class="invalid-feedback">
+                            Sorry, wrong password!
+                          </div>
+                    </div>
+                  </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 offset-sm-4">
+                      <div class="py-4">
+                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log in!</button>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-sm-6 offset-sm-4">
+                        <a href="#">Create a new account</a>    
+                    </div>
+                  </div>
+              </form>
+    </div>
+{%  endblock content %}
