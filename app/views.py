@@ -65,9 +65,7 @@ def hot_questions(request):
 def login_page(request):
     if request.method == 'GET':
         form = LoginForm()
-        print("HERE")
     else:
-        print("AND HERE")
         form = LoginForm(data=request.POST)
         if form.is_valid():
             user = auth.authenticate(request, **form.cleaned_data)
@@ -111,11 +109,16 @@ def tag(request, tag):
     questions = paginate(request, questions, 10)
     title = Tag.objects.get(id=tag).title
     answers = count_answers(questions)
+    like = count_marks_for_quiz(questions, True)
+    dislike = count_marks_for_quiz(questions, False)
     return render(request, 'tag.html', {
         'title': title,
         'questions': questions,
-        "answers": answers
+        "answers": answers,
+        "like": like,
+        "dislike": dislike
     })
+
 
 @login_required
 def ask(request):
@@ -127,7 +130,7 @@ def ask(request):
             question = form.save(commit=False)
             question.author = request.user
             question.save()
-            return redirect(reverse('question', kwargs={'pk': question.pk}))
+            return redirect("/")
     return render(request, 'ask.html', {
         'form': form
     })
