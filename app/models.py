@@ -16,8 +16,15 @@ class Profile(models.Model):
         verbose_name_plural = 'Profiles'
 
 
+# class TagManager(models.Manager):
+#     def questions_with_tag(self):
+#         return Question.objects.filter(pk=)
+
+
 class Tag(models.Model):
     title = models.CharField(max_length=50)
+
+    # objects = TagManager()
 
     def __str__(self):
         return self.title
@@ -29,10 +36,13 @@ class Tag(models.Model):
 
 class QuestionManager(models.Manager):
     def published_new(self):
-        return self.order_by('date_create')
+        return self.order_by('-date_create')
 
     def published_best(self):
-        return self.order_by('rating')
+        return self.order_by('-rating')
+
+    def question_with_tag(self, tag):
+        return self.filter(tags=tag)
 
 
 class Question(models.Model):
@@ -53,6 +63,14 @@ class Question(models.Model):
         verbose_name_plural = 'Questions'
 
 
+class AnswerManager(models.Manager):
+    def answers_for_question(self, pk):
+        return self.filter(question=Question.objects.get(id=pk))
+
+    def count_answers(self, question):
+        return self.filter(question=question).count()
+
+
 class Answer(models.Model):
     text = models.TextField()
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -67,6 +85,8 @@ class Answer(models.Model):
     class Meta:
         verbose_name = 'Answer'
         verbose_name_plural = 'Answers'
+
+    objects = AnswerManager()
 
 
 class MarkForQuestions(models.Model):
