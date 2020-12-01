@@ -65,7 +65,7 @@ class Question(models.Model):
 
 class AnswerManager(models.Manager):
     def answers_for_question(self, pk):
-        return self.filter(question=Question.objects.get(id=pk))
+        return self.filter(question=Question.objects.get(id=pk)).order_by("-rating")
 
     def count_answers(self, question):
         return self.filter(question=question).count()
@@ -95,7 +95,7 @@ class MarkForQuestions(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.is_like
+        return self.question.title
 
     class Meta:
         verbose_name = 'MarkForQuestion'
@@ -105,11 +105,11 @@ class MarkForQuestions(models.Model):
 class MarkForAnswers(models.Model):
     is_like = models.BooleanField(default=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    answers = models.ForeignKey(Answer, on_delete=models.CASCADE, default=None, null=True)
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.is_like
+        return self.answers.text
 
     class Meta:
         verbose_name = 'MarkForAnswer'

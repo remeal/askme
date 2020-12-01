@@ -25,8 +25,10 @@ def count_marks_for_quiz(questions, is_liked):
 def count_marks_for_answer(answers, is_liked):
     arr = {}
     for answer in answers:
-        arr.update({answer.id: MarkForAnswers.objects.filter(answer=answer.id, is_like=is_liked).count()})
+        arr.update({answer.id: MarkForAnswers.objects.filter(answers=answer.id, is_like=is_liked).count()})
     return arr
+
+
 @register.filter
 def get_value(dict, key):
     return dict.get(key)
@@ -70,7 +72,6 @@ def login_page(request):
         if form.is_valid():
             user = auth.authenticate(request, **form.cleaned_data)
             if user is not None:
-                request.session['hello'] = 'world'
                 auth.login(request, user)
                 return redirect("/")
     return render(request, 'login.html', {
